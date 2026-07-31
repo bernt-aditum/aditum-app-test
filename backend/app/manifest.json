@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1",
+  "app_name": "Furnace Monitor (render test)",
+  "description": "Live Proficy KKS temps/pressure/level via the governed API.",
+  "reference_architecture": "dashboard_timeseries",
+  "components": [
+    {
+      "id": "k",
+      "type": "kpi_cards",
+      "title": "Latest readings",
+      "query": {
+        "source": "timeseries",
+        "tags": [
+          "10MAA01TT001",
+          "10MAA01PT001",
+          "10MAA01LT001"
+        ],
+        "aggregation": "last"
+      }
+    },
+    {
+      "id": "tr",
+      "type": "trend_chart",
+      "title": "Zone temperatures (7d)",
+      "query": {
+        "source": "timeseries",
+        "tags": [
+          "10MAA01TT001",
+          "10MAA01TT002",
+          "10MAA01TT003"
+        ],
+        "window_days": 7
+      }
+    },
+    {
+      "id": "tb",
+      "type": "table",
+      "title": "Pressure samples",
+      "query": {
+        "source": "timeseries",
+        "tags": [
+          "10MAA01PT001"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "rbac": "inherit_from_aditum",
+    "api_keys": "scoped_read_only",
+    "sandboxed": true,
+    "secrets_in_client": false
+  }
+}
