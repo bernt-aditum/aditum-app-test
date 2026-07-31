@@ -1,0 +1,36 @@
+# Render blueprint for a generated Aditum app (deploy target: Aditum Cloud).
+# The guided deploy injects the ${...} values and the sync:false secrets.
+services:
+  - type: web
+    name: APP_SLUG-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ADITUM_JWT_SECRET
+        sync: false
+      - key: ADITUM_API_BASE
+        sync: false
+      - key: APP_DATA_TOKEN
+        sync: false
+      - key: APP_CONNECTOR_ID
+        sync: false
+      - key: APP_CONNECTORS_JSON
+        sync: false
+      - key: APP_ALLOWED_EMAILS
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+
+  - type: web
+    runtime: static
+    name: APP_SLUG-web
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        sync: false
+      - key: VITE_ADITUM_LOGIN
+        value: https://aditumdata.com
