@@ -1,0 +1,72 @@
+/* Theme-aware surfaces + ink (validated dataviz chrome). Light and dark are both
+   selected sets; initTheme() stamps data-theme, the toggle wins both ways. */
+:root {
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --muted: #52514e;
+  --faint: #898781;
+  --line: #e1e0d9;
+  --accent: #2a78d6;
+  --good: #0ca30c;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --muted: #c3c2b7;
+  --faint: #898781;
+  --line: #2c2c2a;
+  --accent: #3987e5;
+  --good: #0ca30c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--page);
+}
+
+/* Login gate */
+.gate { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.gate-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 40px; max-width: 380px; text-align: center; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12); }
+.logo { width: 44px; height: 44px; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.gate-card h1 { margin: 0 0 8px; font-size: 22px; }
+.gate-card p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+.btn { margin-top: 16px; background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.btn:hover { filter: brightness(1.05); }
+
+/* App shell */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.app-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 20px 28px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.app-head h1 { margin: 0; font-size: 20px; }
+.app-head p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.app-head-right { display: flex; align-items: center; gap: 12px; }
+.prov { background: color-mix(in srgb, var(--good) 14%, transparent); color: var(--good); border: 1px solid color-mix(in srgb, var(--good) 40%, transparent); padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.btn-ghost { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.btn-ghost:hover { border-color: var(--accent); color: var(--ink); }
+.banner { margin: 12px 28px 0; padding: 10px 14px; border-radius: 8px; background: color-mix(in srgb, #d03b3b 14%, var(--surface)); color: #d03b3b; font-size: 13px; }
+
+.grid { flex: 1; padding: 24px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; align-content: start; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.card-trend_chart, .card-table, .card-scatter, .card-stacked_bar { grid-column: 1 / -1; }
+.card h3 { margin: 0 0 12px; font-size: 15px; }
+
+.kpis { display: flex; gap: 12px; flex-wrap: wrap; }
+.kpi { flex: 1; min-width: 120px; background: var(--page); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.kpi-l { font-size: 12px; color: var(--muted); font-family: ui-monospace, monospace; }
+.kpi-v { font-size: 26px; font-weight: 800; }
+.kpi-a { font-size: 11px; color: var(--faint); text-transform: uppercase; }
+
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th, .tbl td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.tbl th { color: var(--muted); }
+.tbl td { font-variant-numeric: tabular-nums; }
+
+.nodata { padding: 20px 12px; border: 1px dashed var(--line); border-radius: 10px; background: var(--page); color: var(--muted); font-size: 12.5px; text-align: center; }
+
+.foot { padding: 14px 28px; color: var(--faint); font-size: 12px; border-top: 1px solid var(--line); background: var(--surface); }
